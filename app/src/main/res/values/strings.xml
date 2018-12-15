@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lesson1</string>
+    <string name="host_scheme">https</string>
+    <string name="host_data">m.habr.com</string>
+</resources>
