@@ -1,2 +1,2 @@
-include ':lesson1', ':task2', ':lesson3',
+include ':lesson1', ':task2', ':lesson3', ':task3',
         ':lesson2'
