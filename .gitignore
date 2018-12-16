@@ -10,3 +10,9 @@
 /build
 /captures
 .externalNativeBuild
+*gradle-wrapper.jar
+*gradle-wrapper.properties
+*gradle.properties
+*gradlew
+*gradlew.bat
+*proguard-rules.pro
