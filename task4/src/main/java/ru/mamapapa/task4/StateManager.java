@@ -22,11 +22,21 @@ public class StateManager {
         return instance;
     }
 
-    public void setState(String state){
+    public void setState(String state) {
         this.state = State.valueOf(state);
     }
 
-    public String getState(){
+    public void setNextState() {
+        if (state == null) {
+            state = State.A;
+        } else {
+            State[] values = State.values();
+            int ordinal = state.ordinal();
+            this.state = values[values.length - 1 == ordinal ? 0 : ++ordinal];
+        }
+    }
+
+    public String getState() {
         return state.name();
     }
 }
