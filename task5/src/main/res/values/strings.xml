@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">task5</string>
+    <string name="text">TextView</string>
+    <string name="changeState">Changed</string>
+    <string name="to3Activity">To 3 activity</string>
+    <string name="to2Activity">To 2 activity</string>
+    <string name="to4Activity">To 4 activity</string>
 </resources>
