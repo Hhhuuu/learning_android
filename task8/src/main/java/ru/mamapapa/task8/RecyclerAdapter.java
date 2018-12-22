@@ -17,6 +17,7 @@ import static ru.mamapapa.task8.EditNoteActivity.NOTE_ID;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
 
+    private static final int MAX_LENGTH = 20;
     private List<Note> items = new ArrayList<>();
 
     @NonNull
@@ -53,7 +54,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
         }
 
         public void bind(Note note) {
-            textView.setText(note.getTitle());
+            String title = note.getTitle();
+            textView.setText(title.length() > MAX_LENGTH ? title.substring(0, MAX_LENGTH) + "..." : title);
             textView.setTag(note.getId());
         }
     }

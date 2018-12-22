@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">task8</string>
     <string name="title_activity_main2">MainActivity</string>
-    <string name="title_note">Title note</string>
+    <string name="title_note">TitleNote</string>
     <string name="add">Add</string>
     <string name="save">Save</string>
     <string name="remove">Remove</string>
