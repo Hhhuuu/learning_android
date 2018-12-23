@@ -19,6 +19,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     private static final int MAX_LENGTH = 20;
     private List<Note> items = new ArrayList<>();
+    private static float textSize = 0.0f;
 
     @NonNull
     @Override
@@ -57,6 +58,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             String title = note.getTitle();
             textView.setText(title.length() > MAX_LENGTH ? title.substring(0, MAX_LENGTH) + "..." : title);
             textView.setTag(note.getId());
+            if (textSize != 0.0f) {
+                textView.setTextSize(textSize);
+            }
         }
     }
 
@@ -66,5 +70,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     public void clear() {
         items.clear();
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
     }
 }

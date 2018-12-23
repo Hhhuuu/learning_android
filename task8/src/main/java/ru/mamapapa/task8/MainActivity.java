@@ -16,14 +16,16 @@ import static ru.mamapapa.task8.EditNoteActivity.ACTION;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private DataStorage dataStorage;
+    private NoteDataStorage noteDataStorage;
+    private SettingDataStorage settingDataStorage;
     private RecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataStorage = new DataStorage(this);
+        noteDataStorage = new NoteDataStorage(this);
+        settingDataStorage = new SettingDataStorage(this);
 
         recyclerView = findViewById(R.id.recycler);
         adapter = new RecyclerAdapter();
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.addItems(dataStorage.getItems());
+        adapter.setTextSize(settingDataStorage.getValue(SettingDataStorage.SettingKey.TEXT_SIZE));
+        adapter.addItems(noteDataStorage.getItems());
         adapter.notifyDataSetChanged();
     }
 

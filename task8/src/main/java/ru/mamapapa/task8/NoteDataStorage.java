@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DataStorage {
+public class NoteDataStorage {
     private static final String FILE_NAME = "notes";
     private static final Gson GSON = new Gson();
     private Context context;
 
-    public DataStorage(Context context) {
+    public NoteDataStorage(Context context) {
         this.context = context;
     }
 

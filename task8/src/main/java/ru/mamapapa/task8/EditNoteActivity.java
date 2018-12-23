@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.UUID;
 
@@ -22,7 +23,8 @@ public class EditNoteActivity extends AppCompatActivity {
     private View remove;
     private EditText title;
     private EditText body;
-    private DataStorage dataStorage;
+    private NoteDataStorage noteDataStorage;
+    private SettingDataStorage settingDataStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,21 @@ public class EditNoteActivity extends AppCompatActivity {
         save = findViewById(R.id.buttonSave);
         remove = findViewById(R.id.buttonRemove);
 
-        dataStorage = new DataStorage(this);
+        noteDataStorage = new NoteDataStorage(this);
+        settingDataStorage = new SettingDataStorage(this);
+    }
+
+    private void setTextSize(TextView textView) {
+        Float value = settingDataStorage.getValue(SettingDataStorage.SettingKey.TEXT_SIZE);
+        if (value != 0.0f)
+            textView.setTextSize(value);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setTextSize(title);
+        setTextSize(body);
         Intent intent = getIntent();
         String action = intent.getStringExtra(ACTION);
         switch (Action.valueOf(action)) {
@@ -60,7 +71,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
                     save.setOnClickListener(v -> setData(id));
                     remove.setOnClickListener(v -> {
-                        dataStorage.removeItem(id);
+                        noteDataStorage.removeItem(id);
                         finish();
                     });
                 } else {
@@ -73,7 +84,7 @@ public class EditNoteActivity extends AppCompatActivity {
     }
 
     private void setValueNote(String id) {
-        Note item = dataStorage.getItem(id);
+        Note item = noteDataStorage.getItem(id);
         title.setText(item.getTitle());
         body.setText(item.getBody());
     }
@@ -85,7 +96,7 @@ public class EditNoteActivity extends AppCompatActivity {
     private void setData(String id) {
         String titleText = title.getText().toString();
         String bodyText = body.getText().toString();
-        dataStorage.addItem(new Note(id, titleText, bodyText));
+        noteDataStorage.addItem(new Note(id, titleText, bodyText));
         finish();
     }
 }
