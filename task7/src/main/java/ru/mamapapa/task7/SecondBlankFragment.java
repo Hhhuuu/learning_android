@@ -31,9 +31,9 @@ public class SecondBlankFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_second_blank, container, false);
     }
 
@@ -55,7 +55,7 @@ public class SecondBlankFragment extends Fragment {
         String text = listener.getTextFromEditText();
         FragmentManager childFragmentManager = getChildFragmentManager();
         childFragmentManager.beginTransaction()
-                .add(R.id.secondFragment, ThirdBlankFragment.newInstance(text), THIRD_FRAGMENT)
+                .replace(R.id.thirdFragment, ThirdBlankFragment.newInstance(text), THIRD_FRAGMENT)
                 .commit();
     }
 

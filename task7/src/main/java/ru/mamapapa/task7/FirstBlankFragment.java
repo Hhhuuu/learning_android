@@ -32,9 +32,9 @@ public class FirstBlankFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_first_blank, container, false);
     }
 

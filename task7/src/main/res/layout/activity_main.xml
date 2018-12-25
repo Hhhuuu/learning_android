@@ -7,4 +7,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <fragment
+        android:id="@+id/firstFragment"
+        class="ru.mamapapa.task7.FirstBlankFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border" />
+
+    <fragment
+        android:id="@+id/secondFragment"
+        class="ru.mamapapa.task7.SecondBlankFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border" />
 </LinearLayout>
