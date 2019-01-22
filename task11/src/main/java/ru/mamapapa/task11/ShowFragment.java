@@ -38,11 +38,6 @@ public class ShowFragment extends Fragment {
         });
     }
 
-    public void onButtonPressed() {
-        if (listener != null) {
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
