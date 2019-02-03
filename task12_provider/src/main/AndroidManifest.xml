@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.mamapapa.task12">
+    package="ru.mamapapa.task12provider">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <provider
-            android:name=".CustomContentProvider"
-            android:authorities="ru.mamapapa.task12"
-            android:permission="ru.mamapapa.PERMISSION"
-            android:exported="true" />
-
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -24,6 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EditNoteActivity" />
+        <activity android:name=".SettingActivity" />
+
+        <provider
+            android:name=".CustomContentProvider"
+            android:authorities="ru.mamapapa.task12provider"
+            android:process="ru.mamapapa.task12provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

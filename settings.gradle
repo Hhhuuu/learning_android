@@ -1,2 +1,2 @@
-include ':lesson1', ':lesson2', ':task2', ':lesson3', ':task3', ':task4', ':task5', ':task6', ':task7', ':task8', ':task9', ':task10', ':task11', ':shared_preference_aidl', ':task12'
+include ':lesson1', ':lesson2', ':task2', ':lesson3', ':task3', ':task4', ':task5', ':task6', ':task7', ':task8', ':task9', ':task10', ':task11', ':shared_preference_aidl', ':task12_provider'
 
