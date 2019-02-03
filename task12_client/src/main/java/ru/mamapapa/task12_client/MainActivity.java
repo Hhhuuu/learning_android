@@ -1,4 +1,4 @@
-package ru.mamapapa.task12;
+package ru.mamapapa.task12_client;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
