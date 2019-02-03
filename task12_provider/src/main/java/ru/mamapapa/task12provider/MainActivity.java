@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addItems(noteDataStorage.getItems());
         adapter.notifyDataSetChanged();
         getContentResolver().registerContentObserver(CustomContentProvider.CONTENT_URI, true, contentObserver);
-        Cursor query = getContentResolver().query(CustomContentProvider.CONTENT_URI, null, null, null, null);
-        List<Note> notes = ContentConverter.convertCursorToNotes(query);
     }
 
     @Override
