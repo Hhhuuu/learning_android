@@ -1,16 +1,18 @@
 package ru.mamapapa.task12_client;
 
 import android.content.ContentValues;
-import android.content.UriMatcher;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private static final String AUTHORITY = "ru.mamapapa.task12provider";
@@ -37,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText body;
 
     private CallbackNote callbackNote;
+    private ContentObserver contentObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        contentObserver = new CustomContentObserver(new Handler(Looper.getMainLooper()));
+
         adapter = new RecyclerAdapter();
 
         recyclerView = findViewById(R.id.recycler);
@@ -56,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
         removeButton = findViewById(R.id.removeButton);
 
         createButton.setOnClickListener(v -> {
-            getContentResolver().insert(CONTENT_URI, getValues());
+            getContentResolver().insert(CONTENT_URI, getValues(true));
         });
 
         editButton.setOnClickListener(v -> {
-            getContentResolver().update(EDIT_CONTENT_URI, getValues(), null, null);
+            getContentResolver().update(EDIT_CONTENT_URI, getValues(false), null, null);
         });
 
         removeButton.setOnClickListener(v -> {
@@ -78,23 +83,41 @@ public class MainActivity extends AppCompatActivity {
         adapter.setCallbackNote(callbackNote);
     }
 
-    private ContentValues getValues() {
-        return ContentConverter.convertNoteToValues(new Note(id.getText().toString(), title.getText().toString(), body.getText().toString()));
+    private ContentValues getValues(boolean isNew) {
+        return ContentConverter.convertNoteToValues(new Note(isNew ? UUID.randomUUID().toString(): id.getText().toString(), title.getText().toString(), body.getText().toString()));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cursor = getContentResolver().query(CONTENT_URI, null, null, null, null);
-        adapter.addItems(ContentConverter.convertCursorToNotes(cursor));
-        adapter.notifyDataSetChanged();
+        getContentResolver().registerContentObserver(CONTENT_URI, true, contentObserver);
+        updateAdapter();
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+        getContentResolver().unregisterContentObserver(contentObserver);
         adapter.clear();
         adapter.setCallbackNote(null);
+    }
+
+    class CustomContentObserver extends ContentObserver {
+        CustomContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            updateAdapter();
+        }
+    }
+
+    private void updateAdapter() {
+        Cursor cursor = getContentResolver().query(CONTENT_URI, null, null, null, null);
+        adapter.addItems(ContentConverter.convertCursorToNotes(cursor));
+        adapter.notifyDataSetChanged();
     }
 }
