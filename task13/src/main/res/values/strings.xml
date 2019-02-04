@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">task13</string>
+    <string name="defaultCity">Москва</string>
 </resources>
