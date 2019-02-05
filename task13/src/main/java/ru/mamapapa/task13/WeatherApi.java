@@ -2,10 +2,12 @@ package ru.mamapapa.task13;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
-import ru.mamapapa.task13.dto.Weather;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
+import ru.mamapapa.task13.yandex.dto.Weather;
 
 public interface WeatherApi {
-    @GET("v1/forecast?lat={lat}&lon={lon}&lang=ru_RU&limit=7")
-    Call<Weather> getWeather(@Path("lat") String lat, @Path("lon") String lon);
+    @Headers("X-Yandex-API-Key: 5e95aa7e-28e7-446a-8475-ad36e3084f1a")
+    @GET("v1/forecast?lang=ru_RU&limit=7")
+    Call<Weather> getWeather(@Query("lat") String lat, @Query("lon") String lon);
 }

@@ -1,4 +1,4 @@
-package ru.mamapapa.task13.dto;
+package ru.mamapapa.task13.yandex.dto;
 
 public class Info {
     Tzinfo tzinfo;

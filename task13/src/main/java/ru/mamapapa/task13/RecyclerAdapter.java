@@ -9,11 +9,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import ru.mamapapa.task13.yandex.dto.Forecast;
+import ru.mamapapa.task13.yandex.dto.Weather;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
+    private class Item {
+        String date;
+        String dayTemp;
+        String nightTemp;
+    }
 
-    private List<Integer> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     @NonNull
     @Override
@@ -33,19 +43,37 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     }
 
     static class Holder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        private TextView dateTextView;
+        private TextView dayTextView;
+        private TextView nightTextView;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.itemTextView);
+            dateTextView = itemView.findViewById(R.id.dateTextView);
+            dayTextView = itemView.findViewById(R.id.tempDayTextView);
+            nightTextView = itemView.findViewById(R.id.tempNightTextView);
 
             itemView.setOnClickListener(v -> {
             });
         }
 
-        public void bind(Integer value) {
-            textView.setText(value);
-            textView.setTag(value);
+        public void bind(Item value) {
+            dateTextView.setText(value.date);
+            dateTextView.setTag(value);
+            dayTextView.setText(value.dayTemp);
+            nightTextView.setText(value.nightTemp);
         }
+    }
+
+    public void addItems(Weather weathers) {
+        items = new ArrayList<>();
+        for (Forecast forecast : weathers.getForecasts()){
+            Item item = new Item();
+            item.date = forecast.getDate();
+            item.dayTemp = forecast.getParts().getDatShort().getTemp();
+            item.nightTemp = forecast.getParts().getNightShort().getTemp();
+            items.add(item);
+        }
+        notifyDataSetChanged();
     }
 }
