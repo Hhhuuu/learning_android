@@ -31,9 +31,10 @@ public class WeatherIntentService extends IntentService {
     private static final String ACTION_DETAIL_INFO = "ru.mamapapa.task13.action.DETAIL.INFO";
     private static final String ACTION_WEATHER_7_DAY = "ru.mamapapa.task13.action.WEATHER.ON.7.DAY";
 
-    private static final String EXTRA_PARAM_DATE = "ru.mamapapa.task13.extra.DATE";
+    public static final String EXTRA_PARAM_DATE = "ru.mamapapa.task13.extra.DATE";
     private static final String EXTRA_PARAM_LAT = "ru.mamapapa.task13.extra.LAT";
     private static final String EXTRA_PARAM_LON = "ru.mamapapa.task13.extra.LON";
+
     private IBinder binder = new LocalBinder();
     private WeatherOnDayCallback callback;
 
