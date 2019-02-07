@@ -47,7 +47,7 @@ public class DetailInfoAdapter extends RecyclerView.Adapter<DetailInfoAdapter.Ho
             super(itemView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             dayTextView = itemView.findViewById(R.id.tempDayTextView);
-            dateTextView.setVisibility(View.GONE);
+            dayTextView.setVisibility(View.GONE);
 
             nightTextView = itemView.findViewById(R.id.tempNightTextView);
         }

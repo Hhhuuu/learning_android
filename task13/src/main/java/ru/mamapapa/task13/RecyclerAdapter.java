@@ -20,6 +20,9 @@ import ru.mamapapa.task13.yandex.dto.Weather;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
+
+    public static final String NOW = "Now";
+
     private class Item {
         String date;
         String dayTemp;
@@ -58,17 +61,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
             itemView.setOnClickListener(v -> {
                 String date = (String) dateTextView.getTag();
-                WeatherIntentService.getDetailInfo(v.getContext(), date);
                 startActivity(v.getContext(), date);
             });
         }
 
         public void bind(Item value) {
             dateTextView.setText(value.date);
-            dateTextView.setTag(value);
+            dateTextView.setTag(value.date);
             dayTextView.setText(value.dayTemp);
             nightTextView.setText(value.nightTemp);
         }
+    }
+
+    private static boolean isFirstElement(String data) {
+        return items.get(0).date.equals(data);
     }
 
     private static void startActivity(Context context, String date) {
@@ -79,9 +85,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     public void addItems(Weather weathers) {
         items = new ArrayList<>();
-        Item item = buildItem("Now", null, weathers.getFact().getTemp());
+        Item item = buildItem(NOW, null, weathers.getFact().getTemp());
         items.add(item);
-        for (Forecast forecast : weathers.getForecasts()){
+        for (Forecast forecast : weathers.getForecasts()) {
             Parts parts = forecast.getParts();
             items.add(buildItem(forecast.getDate(),
                     parts.getDatShort().getTemp(),

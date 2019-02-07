@@ -4,9 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.gson.Gson;
+
+import ru.mamapapa.task13.yandex.dto.Forecast;
+
 public class DetailInfoBroadcastReceiver extends BroadcastReceiver {
+    private static final Gson GSON = new Gson();
+
     public interface ViewCallback {
-        void handle(String data);
+        void handle(Forecast data);
     }
 
     public static final String ACTION = "ru.mamapapa.DETAIL_INFO";
@@ -19,6 +25,11 @@ public class DetailInfoBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        callback.handle(intent.getStringExtra(WeatherIntentService.EXTRA_PARAM_DATE));
+        String forecast = intent.getStringExtra(WeatherIntentService.EXTRA_PARAM_DATE);
+        callback.handle(fromJson(forecast));
+    }
+
+    private Forecast fromJson(String value) {
+        return GSON.fromJson(value, Forecast.class);
     }
 }

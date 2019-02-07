@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         updateButton = findViewById(R.id.button);
-        updateButton.setOnClickListener(v -> startService(WeatherIntentService.getWeatherOn7Day(this, "", "")));
+        updateButton.setOnClickListener(v -> WeatherIntentService.getWeatherOn7Day(this, "", ""));
         callback = weather -> updateAdapter(weather);
     }
 

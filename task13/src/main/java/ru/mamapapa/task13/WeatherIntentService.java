@@ -8,13 +8,22 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.mamapapa.task13.yandex.dto.Forecast;
 import ru.mamapapa.task13.yandex.dto.Weather;
+
+import static android.content.Intent.FLAG_INCLUDE_STOPPED_PACKAGES;
 
 
 public class WeatherIntentService extends IntentService {
@@ -25,6 +34,7 @@ public class WeatherIntentService extends IntentService {
     }
 
     private static final String LOG_TAG = WeatherIntentService.class.getCanonicalName();
+    private static final Gson GSON = new Gson();
     private static final String BASE_URL = "https://api.weather.yandex.ru/";
 
     private static final String ACTION_DEFAULT = "ru.mamapapa.task13.action.DEFAULT";
@@ -37,7 +47,6 @@ public class WeatherIntentService extends IntentService {
 
     private IBinder binder = new LocalBinder();
     private WeatherOnDayCallback callback;
-
     public WeatherIntentService() {
         super("WeatherIntentService");
     }
@@ -48,19 +57,19 @@ public class WeatherIntentService extends IntentService {
         return intent;
     }
 
-    public static Intent getWeatherOn7Day(Context context, String lat, String lon) {
+    public static void getWeatherOn7Day(Context context, String lat, String lon) {
         Intent intent = new Intent(context, WeatherIntentService.class);
         intent.setAction(ACTION_WEATHER_7_DAY);
         intent.putExtra(EXTRA_PARAM_LAT, lat);
         intent.putExtra(EXTRA_PARAM_LON, lon);
-        return intent;
+        context.startService(intent);
     }
 
-    public static Intent getDetailInfo(Context context, String date) {
+    public static void getDetailInfo(Context context, String date) {
         Intent intent = new Intent(context, WeatherIntentService.class);
         intent.setAction(ACTION_DETAIL_INFO);
         intent.putExtra(EXTRA_PARAM_DATE, date);
-        return intent;
+        context.startService(intent);
     }
 
     @Override
@@ -97,8 +106,27 @@ public class WeatherIntentService extends IntentService {
     }
 
     private void handleActionDetailInfo(String date) {
-        // TODO: Handle action Baz
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            Weather weather = getWeather("", "");
+            List<Forecast> forecasts = weather.getForecasts().stream().filter(item -> item.getDate().equals(date)).collect(Collectors.toList());
+            if (forecasts.size() == 1){
+                String jsonForecast = toJson(forecasts.get(0));
+                sendBroadcast(jsonForecast);
+            }
+
+        }catch (Exception e){
+            Log.e(LOG_TAG, "", e);
+        }
+    }
+
+    private void sendBroadcast(String data) {
+        Intent intent = new Intent(DetailInfoBroadcastReceiver.ACTION);
+        intent.putExtra(EXTRA_PARAM_DATE, data);
+        sendBroadcast(intent);
+    }
+
+    private String toJson(Object o) {
+        return GSON.toJson(o);
     }
 
     private Weather getWeather(String lat, String lon) throws IOException {
