@@ -9,16 +9,16 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 @Dao
-public interface WeatherDao {
-    @Query("select * from weather_info where id = :id")
-    WeatherEntity get(Long id);
+public interface WeatherOnCityDao {
+    @Query("select * from weather_on_city where id = :id")
+    WeatherOnCityEntity get(Long id);
 
-    @Query("select * from weather_info")
-    List<WeatherEntity> getAll();
+    @Query("select * from weather_on_city")
+    List<WeatherOnCityEntity> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(WeatherEntity entity);
+    void insert(WeatherOnCityEntity entity);
 
     @Delete
-    void delete(WeatherEntity entity);
+    void delete(WeatherOnCityEntity entity);
 }

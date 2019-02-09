@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class Parts {
     @SerializedName("day_short")
-    private Short datShort;
+    private Short dayShort;
     @SerializedName("night_short")
     private Short nightShort;
 
-    public Short getDatShort() {
-        return datShort;
+    public Short getDayShort() {
+        return dayShort;
     }
 
-    public void setDatShort(Short datShort) {
-        this.datShort = datShort;
+    public void setDayShort(Short dayShort) {
+        this.dayShort = dayShort;
     }
 
     public Short getNightShort() {

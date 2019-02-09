@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import ru.mamapapa.task13.yandex.dto.Forecast;
 import ru.mamapapa.task13.yandex.dto.Parts;
@@ -21,7 +19,7 @@ import ru.mamapapa.task13.yandex.dto.Weather;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
 
-    public static final String NOW = "Now";
+    private static final String NOW = "Now";
 
     private class Item {
         String date;
@@ -59,22 +57,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             dayTextView = itemView.findViewById(R.id.tempDayTextView);
             nightTextView = itemView.findViewById(R.id.tempNightTextView);
 
+
             itemView.setOnClickListener(v -> {
                 String date = (String) dateTextView.getTag();
-                startActivity(v.getContext(), date);
+                if (!isFirstElement(date)) {
+                    startActivity(v.getContext(), date);
+                }
             });
         }
 
         public void bind(Item value) {
             dateTextView.setText(value.date);
             dateTextView.setTag(value.date);
-            dayTextView.setText(value.dayTemp);
+            if (!NOW.equals(value.date)) {
+                dayTextView.setText(value.dayTemp);
+            } else {
+                dayTextView.setVisibility(View.INVISIBLE);
+            }
             nightTextView.setText(value.nightTemp);
         }
     }
 
     private static boolean isFirstElement(String data) {
-        return items.get(0).date.equals(data);
+        return !items.isEmpty() && items.get(0).date.equals(data);
     }
 
     private static void startActivity(Context context, String date) {
@@ -90,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
         for (Forecast forecast : weathers.getForecasts()) {
             Parts parts = forecast.getParts();
             items.add(buildItem(forecast.getDate(),
-                    parts.getDatShort().getTemp(),
+                    parts.getDayShort().getTemp(),
                     parts.getNightShort().getTemp()));
         }
         notifyDataSetChanged();

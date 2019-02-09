@@ -8,10 +8,16 @@ import android.arch.persistence.room.RoomDatabase;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {WeatherEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {
+        WeatherOnCityEntity.class,
+        WeatherOnDayEntity.class,
+        WeatherOnHourEntity.class
+}, version = 1, exportSchema = false)
 public abstract class WeatherDatabase extends RoomDatabase {
 
-    public abstract WeatherDao getWeatherDao();
+    public abstract WeatherOnCityDao getOnCityDao();
+    public abstract WeatherOnDayDao getOnDayDao();
+    public abstract WeatherOnHourDao getOnHourDao();
 
     @NonNull
     @Override
