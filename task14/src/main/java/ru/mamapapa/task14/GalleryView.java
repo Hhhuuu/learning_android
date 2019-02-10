@@ -15,8 +15,11 @@ public class GalleryView {
         recyclerView.setAdapter(adapter);
     }
 
+    public void setViewModel(GalleryViewModel viewModel){
+        adapter.setViewModel(viewModel);
+    }
+
     public void showPictures(List<PictureInfo> pictures) {
         adapter.addItems(pictures);
-
     }
 }

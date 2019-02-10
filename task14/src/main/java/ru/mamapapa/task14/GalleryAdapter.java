@@ -1,7 +1,5 @@
 package ru.mamapapa.task14;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,8 @@ import ru.mamapapa.task14.databinding.ItemViewBinding;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.Holder>{
     public static final String EXTRA_PARAM_ID = "ID";
-    private static List<PictureInfo> items = new ArrayList<>();
+    private List<PictureInfo> items = new ArrayList<>();
+    private GalleryViewModel viewModel;
 
     @NonNull
     @Override
@@ -35,30 +34,24 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.Holder>{
         return items.size();
     }
 
-    static class Holder extends RecyclerView.ViewHolder {
-        private ItemViewBinding binding;
 
-        public Holder(@NonNull ItemViewBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-
-            binding.getRoot().setOnClickListener(v -> {
-                PictureInfo info = (PictureInfo) binding.getRoot().getTag();
-                startActivity(v.getContext(), info.getId());
-            });
-        }
-
-        public void bind(PictureInfo value) {
-            binding.setInfo(value);
-            binding.getRoot().setTag(value);
-            binding.executePendingBindings();
-        }
+    public void setViewModel(GalleryViewModel viewModel){
+        this.viewModel = viewModel;
     }
 
-    private static void startActivity(Context context, int pictureId) {
-        Intent intent = new Intent(context, ViewPicturesActivity.class);
-        intent.putExtra(EXTRA_PARAM_ID, pictureId);
-        context.startActivity(intent);
+    class Holder extends RecyclerView.ViewHolder {
+        private ItemViewBinding binding;
+
+        Holder(@NonNull ItemViewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        void bind(PictureInfo value) {
+            binding.setInfo(value);
+            binding.setViewModel(viewModel);
+            binding.executePendingBindings();
+        }
     }
 
     public void addItems(List<PictureInfo> pictureInfo) {

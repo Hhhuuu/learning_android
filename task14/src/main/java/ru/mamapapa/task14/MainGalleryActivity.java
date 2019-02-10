@@ -13,6 +13,7 @@ public class MainGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         model = ViewModelProviders.of(this).get(GalleryViewModel.class);
+        model.setContext(this);
         model.attachView(new GalleryView(this));
     }
 
