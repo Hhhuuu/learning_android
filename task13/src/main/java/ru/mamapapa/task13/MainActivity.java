@@ -1,5 +1,7 @@
 package ru.mamapapa.task13;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adapter = new RecyclerAdapter();
+        adapter.setOnClickCallback(data -> startActivity(this, data));
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
 
@@ -26,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
         broadcastReceiver = new WeatherOnDayBroadcastReceiver();
         broadcastReceiver.setCallback(data -> adapter.addItems(data));
     }
+
+    private void startActivity(Context context, String date) {
+        Intent intent = new Intent(context, DetailInfoActivity.class);
+        intent.putExtra(WeatherIntentService.EXTRA_PARAM_DATE, date);
+        context.startActivity(intent);
+    }
+
 
     @Override
     protected void onResume() {
