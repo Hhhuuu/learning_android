@@ -3,6 +3,7 @@ package ru.mamapapa.task13;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -73,7 +74,7 @@ public class WeatherIntentService extends IntentService {
             Weather weather = getWeather(lat, lon);
             WRITER.writeToDatabase(getApplicationContext(), weather);
             String jsonWeather = toJson(weather);
-            sendBroadcast(jsonWeather, WeatherOnDayBroadcastReceiver.ACTION, EXTRA_PARAM_DAY);
+            sendBroadcast(jsonWeather, MainActivity.ACTION, EXTRA_PARAM_DAY);
         } catch (Exception e) {
             Log.e(LOG_TAG, "", e);
         }
@@ -88,7 +89,7 @@ public class WeatherIntentService extends IntentService {
                 if (item.getDate().equals(date)) {
                     forecasts.add(item);
                     String jsonForecast = toJson(forecasts.get(0));
-                    sendBroadcast(jsonForecast, DetailInfoBroadcastReceiver.ACTION, EXTRA_PARAM_DATE);
+                    sendBroadcast(jsonForecast, DetailInfoActivity.ACTION, EXTRA_PARAM_DATE);
                     break;
                 }
             }
@@ -100,7 +101,7 @@ public class WeatherIntentService extends IntentService {
     private void sendBroadcast(String data, String action, String param) {
         Intent intent = new Intent(action);
         intent.putExtra(param, data);
-        sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
 
     private String toJson(Object o) {
