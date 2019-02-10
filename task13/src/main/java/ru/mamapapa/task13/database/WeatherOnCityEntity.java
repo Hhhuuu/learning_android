@@ -2,24 +2,21 @@ package ru.mamapapa.task13.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 @Entity(tableName = "weather_on_city")
 public class WeatherOnCityEntity {
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private Long id;
+    private long id;
     private String city;
     private String lastTempNow;
     private String lat;
     private String lon;
 
-    @NonNull
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(@NonNull Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

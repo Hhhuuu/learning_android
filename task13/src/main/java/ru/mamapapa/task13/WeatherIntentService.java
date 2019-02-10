@@ -1,11 +1,8 @@
 package ru.mamapapa.task13;
 
 import android.app.IntentService;
-import android.app.Service;
-import android.content.Intent;
 import android.content.Context;
-import android.os.Binder;
-import android.os.IBinder;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -20,7 +17,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.mamapapa.task13.database.DatabaseManager;
-import ru.mamapapa.task13.database.WeatherDatabase;
 import ru.mamapapa.task13.database.WeatherOnCityDao;
 import ru.mamapapa.task13.database.WeatherOnCityEntity;
 import ru.mamapapa.task13.database.WeatherOnDayDao;
@@ -64,7 +60,6 @@ public class WeatherIntentService extends IntentService {
         intent.putExtra(EXTRA_PARAM_DATE, date);
         context.startService(intent);
     }
-
 
     @Override
     protected void onHandleIntent(Intent intent) {

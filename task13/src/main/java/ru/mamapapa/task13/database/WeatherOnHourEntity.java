@@ -3,24 +3,21 @@ package ru.mamapapa.task13.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 @Entity(tableName = "weather_on_hour")
 public class WeatherOnHourEntity {
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private Long id;
+    private long id;
     private String hour;
     private String temp;
     @ColumnInfo(name = "weather_on_day_id")
     private Long weatherOnDayId;
 
-    @NonNull
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(@NonNull Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

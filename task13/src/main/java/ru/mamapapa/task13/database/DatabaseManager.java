@@ -14,7 +14,6 @@ public class DatabaseManager {
 
     public WeatherDatabase getDatabase() {
         return Room.databaseBuilder(context, WeatherDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries()
                 .build();
     }
 }
