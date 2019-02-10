@@ -17,19 +17,6 @@
             android:name=".WeatherIntentService"
             android:exported="false" />
 
-        <receiver android:name=".DetailInfoBroadcastReceiver">
-            <intent-filter>
-                <action android:name="ru.mamapapa.DETAIL_INFO" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".WeatherOnDayBroadcastReceiver">
-            <intent-filter>
-                <action android:name="ru.mamapapa.DAY" />
-            </intent-filter>
-        </receiver>
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
