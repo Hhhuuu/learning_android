@@ -11,13 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailInfoActivity"></activity>
+        <activity android:name=".detail.info.DetailInfoActivity"></activity>
 
         <service
-            android:name=".WeatherIntentService"
+            android:name=".service.WeatherIntentService"
             android:exported="false" />
 
-        <activity android:name=".MainWeatherActivity">
+        <activity android:name=".weather.MainWeatherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

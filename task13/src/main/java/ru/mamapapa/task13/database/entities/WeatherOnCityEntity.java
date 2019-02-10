@@ -1,4 +1,4 @@
-package ru.mamapapa.task13.database;
+package ru.mamapapa.task13.database.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

@@ -2,6 +2,9 @@ package ru.mamapapa.task13.database;
 
 import android.support.annotation.NonNull;
 
+import ru.mamapapa.task13.database.entities.WeatherOnCityEntity;
+import ru.mamapapa.task13.database.entities.WeatherOnDayEntity;
+import ru.mamapapa.task13.database.entities.WeatherOnHourEntity;
 import ru.mamapapa.task13.yandex.dto.Forecast;
 import ru.mamapapa.task13.yandex.dto.Hour;
 import ru.mamapapa.task13.yandex.dto.Info;
