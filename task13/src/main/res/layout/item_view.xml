@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:background="@drawable/border"
-    tools:context=".MainActivity">
+    tools:context=".MainWeatherActivity">
 
     <TextView
         android:id="@+id/dateTextView"

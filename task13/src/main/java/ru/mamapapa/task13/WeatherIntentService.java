@@ -74,7 +74,7 @@ public class WeatherIntentService extends IntentService {
             Weather weather = getWeather(lat, lon);
             WRITER.writeToDatabase(getApplicationContext(), weather);
             String jsonWeather = toJson(weather);
-            sendBroadcast(jsonWeather, MainActivity.ACTION, EXTRA_PARAM_DAY);
+            sendBroadcast(jsonWeather, MainWeatherActivity.ACTION, EXTRA_PARAM_DAY);
         } catch (Exception e) {
             Log.e(LOG_TAG, "", e);
         }

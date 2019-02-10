@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 
 import ru.mamapapa.task13.yandex.dto.Weather;
 
-public class MainActivity extends AppCompatActivity {
+public class MainWeatherActivity extends AppCompatActivity {
     private static final Gson GSON = new Gson();
     public static final String ACTION = "ru.mamapapa.DAY";
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adapter = new RecyclerAdapter();
-        adapter.setOnClickCallback(data -> startActivity(this, data));
+        adapter.setOnClickCallback(this::startActivity);
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
@@ -47,12 +47,11 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void startActivity(Context context, String date) {
-        Intent intent = new Intent(context, DetailInfoActivity.class);
+    private void startActivity(String date) {
+        Intent intent = new Intent(this, DetailInfoActivity.class);
         intent.putExtra(WeatherIntentService.EXTRA_PARAM_DATE, date);
-        context.startActivity(intent);
+        startActivity(intent);
     }
-
 
     @Override
     protected void onResume() {
