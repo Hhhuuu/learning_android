@@ -1,25 +1,10 @@
 package ru.mamapapa.task14;
 
-import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
-
 import java.util.List;
 
-public class GalleryView {
-    private RecyclerView recyclerView;
-    private GalleryAdapter adapter;
+public interface GalleryView {
 
-    public GalleryView(Activity activity) {
-        this.adapter = new GalleryAdapter();
-        this.recyclerView = activity.findViewById(R.id.recycler);
-        recyclerView.setAdapter(adapter);
-    }
+    void setViewModel(GalleryViewModel viewModel);
 
-    public void setViewModel(GalleryViewModel viewModel){
-        adapter.setViewModel(viewModel);
-    }
-
-    public void showPictures(List<PictureInfo> pictures) {
-        adapter.addItems(pictures);
-    }
+    void showPictures(List<PictureInfo> pictures);
 }

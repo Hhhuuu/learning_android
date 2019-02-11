@@ -44,6 +44,6 @@ public class GalleryViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        view.setViewModel(null);
+        view = null;
     }
 }
