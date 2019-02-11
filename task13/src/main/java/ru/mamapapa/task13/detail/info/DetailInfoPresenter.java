@@ -24,21 +24,21 @@ import static ru.mamapapa.task13.detail.info.DetailInfoActivity.ACTION;
  */
 public class DetailInfoPresenter implements ItemViewPresenter {
     private static final Gson GSON = new Gson();
-    private final Context context;
-    private final DetailInfoView view;
+    private DetailInfoView view;
     private WeatherModel model;
     private BroadcastReceiver broadcastReceiver;
 
-
-    public DetailInfoPresenter(Context context, DetailInfoView view) {
-        this.context = context;
-        this.view = view;
-        initialize();
+    public DetailInfoPresenter(Context context) {
+        model = new WeatherModel(context);
     }
 
-    private void initialize() {
-        view.setPresenter(this);
-        model = new WeatherModel(context);
+    public DetailInfoPresenter attachView(DetailInfoView view){
+        this.view = view;
+        return this;
+    }
+
+    public void deAttachView() {
+        view = null;
     }
 
     /**
@@ -89,7 +89,7 @@ public class DetailInfoPresenter implements ItemViewPresenter {
     }
 
     private LocalBroadcastManager getBroadcastManager() {
-        return LocalBroadcastManager.getInstance(context);
+        return LocalBroadcastManager.getInstance(model.getContext());
     }
 
     private Forecast fromJson(String value) {

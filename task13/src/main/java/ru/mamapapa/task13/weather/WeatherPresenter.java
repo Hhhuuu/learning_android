@@ -25,21 +25,22 @@ import static ru.mamapapa.task13.weather.MainWeatherActivity.ACTION;
  */
 public class WeatherPresenter implements ItemViewPresenter {
     private static final Gson GSON = new Gson();
-    private final Context context;
-    private final WeatherView view;
+    private WeatherView view;
     private WeatherModel model;
     private BroadcastReceiver broadcastReceiver;
 
 
-    public WeatherPresenter(Context context, WeatherView view) {
-        this.context = context;
-        this.view = view;
-        initialize();
+    public WeatherPresenter(Context context) {
+        model = new WeatherModel(context);
     }
 
-    private void initialize() {
-        view.setPresenter(this);
-        model = new WeatherModel(context);
+    public WeatherPresenter attachView(WeatherView view) {
+        this.view = view;
+        return this;
+    }
+
+    public void deAttachView() {
+        view = null;
     }
 
     /**
@@ -71,6 +72,7 @@ public class WeatherPresenter implements ItemViewPresenter {
     }
 
     private void startActivity(String date) {
+        Context context = model.getContext();
         Intent intent = new Intent(context, DetailInfoActivity.class);
         intent.putExtra(WeatherIntentService.EXTRA_PARAM_DATE, date);
         context.startActivity(intent);
@@ -101,7 +103,7 @@ public class WeatherPresenter implements ItemViewPresenter {
     }
 
     private LocalBroadcastManager getBroadcastManager() {
-        return LocalBroadcastManager.getInstance(context);
+        return LocalBroadcastManager.getInstance(model.getContext());
     }
 
     private Weather fromJson(String value) {

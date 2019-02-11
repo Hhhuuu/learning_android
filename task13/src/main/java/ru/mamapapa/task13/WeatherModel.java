@@ -16,6 +16,10 @@ public class WeatherModel {
         this.context = context;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     /**
      * Запрос погоды на несколько дней
      */
